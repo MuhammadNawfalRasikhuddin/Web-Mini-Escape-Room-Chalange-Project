@@ -1,122 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import Level1 from './components/Level1';
+import Level2 from './components/Level2';
+import Level3 from './components/Level3';
+import Level4 from './components/Level4';
+import Victory from './components/Victory';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [level, setLevel] = useState<number>(1);
+
+  const nextLevel = () => {
+    setLevel(level + 1);
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <main className="relative min-h-screen p-4 sm:p-6 md:p-16 flex flex-col w-full">
+      <div className="scanline"></div> 
 
-      <div className="ticks"></div>
+      <div className="w-full max-w-3xl mx-auto relative z-10">
+        {level < 5 && (
+          <div className="mb-6 sm:mb-8 border-b border-green-700 pb-4">
+            <p className="opacity-70 text-sm sm:text-base">root@skomda-mainframe:~$ ./start_ctf.sh</p>
+            <h1 className="text-xl sm:text-2xl font-bold mt-2">CTF MINI ESCAPE ROOM</h1>
+            <p className="mt-1 text-sm sm:text-base">STATUS: [ LEVEL 0{level} / 04 ]</p>
+          </div>
+        )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <div className="mt-6 sm:mt-8">
+          {level === 1 && <Level1 nextLevel={nextLevel} />}
+          {level === 2 && <Level2 nextLevel={nextLevel} />}
+          {level === 3 && <Level3 nextLevel={nextLevel} />}
+          {level === 4 && <Level4 nextLevel={nextLevel} />}
+          {level === 5 && <Victory />}
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      </div>
+    </main>
+  );
 }
-
-export default App
